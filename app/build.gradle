@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.example.apple.myapplication"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        ndk {
+            moduleName = "app"
+            ldLibs "log","z","m"
+        }
+
+//        ndk{
+//            moduleName JniDemo // 设置生成的文件名
+//            cFlags -DANDROID_NDK -D_RELEASE //这个对应的是生成模式
+//            ldLibs m, log, jnigraphics //这个对应 LOCAL_LDLIBS 但是需要去掉前面的 “l”
+//            abiFilters all //这个是对应的 APP_ABI
+//            stl stlport_shared //这个对应的是 APP_STL
+//        }
+    }
+
+
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+}
